@@ -106,23 +106,7 @@ resource "aws_flow_log" "main" {
   iam_role_arn    = aws_iam_role.flow_log.arn
   log_destination = aws_cloudwatch_log_group.flow_log.arn
 }
-data "aws_ami" "amazon_linux" {
-  most_recent = true
-  owners      = ["amazon"]
-  filter {
-    name   = "name"
-    values = ["al2023-ami-*-x86_64"]
-  }
-}
 
-resource "aws_instance" "test" {
-  ami                    = data.aws_ami.amazon_linux.id
-  instance_type          = "t3.micro"
-  subnet_id              = aws_subnet.public.id
-  vpc_security_group_ids = [aws_security_group.web.id]
-
-  tags = { Name = "flow-log-test" }
-}
 resource "aws_iam_role_policy" "flow_log" {
   name = "vpc-flow-log-policy"
   role = aws_iam_role.flow_log.id
@@ -139,7 +123,7 @@ resource "aws_iam_role_policy" "flow_log" {
           "logs:DescribeLogGroups",
           "logs:DescribeLogStreams"
         ]
-        Resource = "*"
+        Resource = "arn:aws:logs:us-east-1:*:log-group:/aws/vpc/flow-logs:*"
       }
     ]
   })
