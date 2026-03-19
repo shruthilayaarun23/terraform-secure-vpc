@@ -1,0 +1,43 @@
+# Local Terraform state — never commit this
+*.tfstate
+*.tfstate.backup
+*.tfstate.lock.info
+
+# Variable files may contain secrets
+*.tfvars
+*.tfvars.json
+
+# Terraform working directory
+.terraform/
+.terraform.lock.hcl
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Checkov temp files
+.checkov/
+
+# AWS credentials — just in case
+.aws/
+credentials
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# JSON files created for AWS CLI workarounds (Windows)
+encryption.json
+public-access.json
